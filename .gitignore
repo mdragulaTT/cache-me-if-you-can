@@ -1,0 +1,5 @@
+2026/notebooks/warmup*.log
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/generated/
+pod_probe.log
