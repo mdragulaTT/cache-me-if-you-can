@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Workshop-machine check for MLinPL 2026. Read-only; changes nothing.
-# Run inside a Console instance:   bash 2026/tools/pod_probe.sh 2>&1 | tee pod_probe.log
+# Run inside a Console instance:   bash tools/pod_probe.sh 2>&1 | tee pod_probe.log
 # The log is safe to share: it prints names of environment variables, never their values.
 set -u
 hr(){ printf '\n== %s ==\n' "$1"; }
@@ -9,7 +9,7 @@ check_url(){  # prints OK/NO for one URL without masking curl failures
 }
 hr "identity"; date -u; hostname; nproc; free -g | head -2
 hr "disk"; df -h / "$HOME" /tmp 2>/dev/null
-echo "Needed: ~4 GB for weights (2026/tools/stage_weights.py) + ~1 GB kernel cache"
+echo "Needed: ~4 GB for weights (tools/stage_weights.py) + ~1 GB kernel cache"
 hr "tenstorrent card"; ls -la /dev/tenstorrent* 2>&1; (command -v tt-smi >/dev/null && timeout 30 tt-smi -ls) 2>&1 | head -20
 hr "tt-metal"
 echo "TT_METAL_HOME=${TT_METAL_HOME:-<unset>}"

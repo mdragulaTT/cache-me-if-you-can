@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw the Act II diagrams (PNG) into 2026/notebooks/media/. Re-run after editing; the notebook
+"""Draw the Act II diagrams (PNG) into notebooks/media/. Re-run after editing; the notebook
 builder embeds these files into the notebooks as attachments."""
 from pathlib import Path
 import matplotlib
@@ -61,7 +61,7 @@ print("diagrams ->", sorted(p.name for p in OUT.glob("*.png")))
 
 
 # ================================================================================================
-# Diagrams for the talks (2026/slides/media/)
+# Diagrams for the talks (slides/media/)
 # ================================================================================================
 from matplotlib.patches import FancyBboxPatch
 

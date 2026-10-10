@@ -107,7 +107,7 @@ def start_warmup(part):
     script = Path(__file__).resolve().parent / "warmup.py"
     env = {**os.environ, "PYTHONUNBUFFERED": "1", "TT_LOGGER_LEVEL": "warn"}  # its log shows "waiting for the card"
     proc = subprocess.Popen([sys.executable, str(script), str(part)], stdout=log.open("w"), stderr=subprocess.STDOUT,
-                            stdin=subprocess.DEVNULL, cwd=str(script.parents[2]), env=env, start_new_session=True)
+                            stdin=subprocess.DEVNULL, cwd=str(script.parents[1]), env=env, start_new_session=True)
     print(f"warm-up part {part} started in the background (process {proc.pid}); progress in {log}")
     return proc
 

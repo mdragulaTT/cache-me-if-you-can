@@ -2,8 +2,8 @@
 """Download every model the workshop uses into WEIGHTS_DIR, once, before the session.
 
 Run on each workshop machine during setup (or once on shared storage):
-    python 2026/tools/stage_weights.py              # both models, about 4 GB
-    python 2026/tools/stage_weights.py --gpt2-only  # only GPT-2 (Acts II and IV), 0.5 GB
+    python tools/stage_weights.py              # both models, about 4 GB
+    python tools/stage_weights.py --gpt2-only  # only GPT-2 (Acts II and IV), 0.5 GB
 Afterwards the notebooks run with HF_HUB_OFFLINE=1 and never touch the internet.
 """
 import sys
