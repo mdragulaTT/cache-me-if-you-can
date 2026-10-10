@@ -70,4 +70,7 @@ except Exception as e:
 PY
 echo
 echo "Done. Open notebooks/00_hello.ipynb (in $(pwd)) with the \"MLinPL 2026\" kernel."
-[ -f tools/run_all.sh ] && echo "To run every notebook once (and compile all kernels): bash tools/run_all.sh"
+if [ -f tools/run_all.sh ]; then
+  echo "To run every notebook once (and compile all kernels): bash tools/run_all.sh"
+fi
+exit 0                                   # the steps above report their own failures and exit early
