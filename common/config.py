@@ -7,8 +7,8 @@ import os
 from pathlib import Path
 
 # --- Where things live ---------------------------------------------------------------------------
-# Model weights are downloaded *before* the workshop by tools/stage_weights.py, so nothing is
-# fetched from the internet during the session.
+# Model weights are downloaded once by tools/stage_weights.py (setup_instance.sh runs it), so the
+# notebooks never fetch anything from the internet.
 WEIGHTS_DIR = Path(os.environ.get("MLINPL_WEIGHTS_DIR", Path.home() / "mlinpl-weights"))
 
 # Acts I and III: a production-style model served through tt_transformers (part of tt-metal).
@@ -60,9 +60,11 @@ SPEEDRUN_RACE_TOKENS = 128
 # less often than the original model. Measured on a p100a: correct fast versions land within about
 # 2 points of the original, 4-bit weights everywhere lose about 8, real bugs lose 15 or more.
 SPEEDRUN_QUALITY_TOLERANCE = 3.0
-# The results form: speedrun.submit() sends a valid result here; its sheet is the leaderboard.
-SPEEDRUN_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfbtxolgkgV_LStXaaBElzmGutCwkU2PV4x_HmDarkKmbc6Ig/formResponse"
-SPEEDRUN_FORM_FIELDS = {"nickname": "entry.101154304", "ms_per_token": "entry.330040254", "what_you_changed": "entry.1036758495"}
+# A leaderboard, for running Act IV as a live race: speedrun.submit() posts a valid result to a Google
+# Form with three short-answer questions, and the form's sheet is the board. Put the form's
+# .../formResponse URL and its entry ids here, and add a speedrun.submit(...) cell to Act IV.
+SPEEDRUN_FORM_URL = None
+SPEEDRUN_FORM_FIELDS = {"nickname": "entry.0", "ms_per_token": "entry.0", "what_you_changed": "entry.0"}
 # Device memory reserved for recorded traces (Act IV opens the card with this).
 TRACE_REGION_BYTES = 64 * 1024 * 1024
 

@@ -22,4 +22,4 @@ raise NotImplementedError("...")
 
 To see how a TT-NN function is called, run `help(ttnn.permute)` (any function) in a cell, or open the [TT-NN API reference](https://docs.tenstorrent.com/tt-metal/latest/ttnn/ttnn/api.html).
 
-`solutions/` has every gap filled for Acts 0 to III. If you are stuck for more than a few minutes, look: the measurements are the point, not the typing. Unfamiliar word? See [../GLOSSARY.md](../GLOSSARY.md).
+`solutions/` has every gap filled, for all five acts; Act IV's has a reference solution with the speedup of each step. If you are stuck for more than a few minutes, look: the measurements are the point, not the typing. Unfamiliar word? See [../GLOSSARY.md](../GLOSSARY.md).

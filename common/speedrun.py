@@ -181,7 +181,7 @@ def race(make_generator, model, device, texts=None, verbose=True):
 
 
 def submit(result, nickname, what_you_changed):
-    """Send a valid race result to the results form, which feeds the leaderboard on the projector."""
+    """Send a valid race result to the leaderboard form (config.SPEEDRUN_FORM_URL), for a live race."""
     import urllib.parse
     import urllib.request
     if not result.get("valid"):
@@ -189,6 +189,9 @@ def submit(result, nickname, what_you_changed):
         return False
     if nickname.strip().lower() in ("", "your nickname"):
         print("Put your nickname in first.")
+        return False
+    if not config.SPEEDRUN_FORM_URL:
+        print(f"No leaderboard is set up (config.SPEEDRUN_FORM_URL). Your result: {result['ms_per_token']:.2f} ms per token.")
         return False
     if os.environ.get("MLINPL_NO_SUBMIT"):                                # automated test runs
         print(f"(test run: {result['ms_per_token']:.2f} ms per token not sent)")
@@ -200,7 +203,7 @@ def submit(result, nickname, what_you_changed):
         with urllib.request.urlopen(config.SPEEDRUN_FORM_URL, data=data, timeout=20) as reply:
             sent = reply.status == 200
     except OSError as e:
-        print(f"Could not reach the results form ({e}). Tell a presenter your result instead.")
+        print(f"Could not reach the results form ({e}).")
         return False
     print(f"Sent: {nickname}, {result['ms_per_token']:.2f} ms per token." if sent else "The form did not accept the result.")
     return sent

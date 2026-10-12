@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-time setup of a workshop machine: a Console instance (or any box) with one Tenstorrent card.
+# One-time setup of a machine with one Tenstorrent card and tt-metal (a Console instance, or your own).
 #
 #   bash tools/setup_instance.sh             # everything (about 4 GB of weights)
 #   bash tools/setup_instance.sh --gpt2-only # only what Acts II and IV need (0.5 GB)

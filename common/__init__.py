@@ -142,5 +142,5 @@ def wait_for_warmup(timeout_s=2400):
             print(f"Another program is using the card (process {others[0][0]}: {others[0][1][:80]}); waiting...", flush=True)
             told.add("others")
         if time.time() - t0 > timeout_s:
-            raise TimeoutError(f"the card is still busy after {timeout_s} s - call a presenter")
+            raise TimeoutError(f"the card is still busy after {timeout_s} s")
         time.sleep(3)

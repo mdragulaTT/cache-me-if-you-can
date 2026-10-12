@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Preparation check: how much of a decode step is the host sending commands?
+"""How much of a decode step is the host sending commands?
 
-Measures decode time per token for the Act I model with trace on and with trace off, and loads the
-model twice in one process (Acts III and IV do this). Run on a workshop machine:
+Measures decode time per token for the Act I model with trace on and with trace off (the two numbers
+Act I quotes), and loads the model twice in one process (Act III does this):
     python tools/check_dispatch.py
-and copy the two numbers into Act I (search for CALIBRATE).
 """
 import sys
 from pathlib import Path

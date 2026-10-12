@@ -1,55 +1,53 @@
 # 🤘 Cache Me If You Can
 
-A hands-on tutorial on LLM inference, given at [ML in PL 2026](https://conference.mlinpl.org/2026/program#tutorial-9) (Sunday, 11 October, Warsaw) by Maciek Draguła and Nathan Maurice from Tenstorrent.
+A hands-on tutorial on LLM inference, given at [ML in PL 2026](https://conference.mlinpl.org/2026/program#tutorial-9) (11 October 2026, Warsaw) by Maciek Draguła and Nathan Maurice from Tenstorrent.
 
-A language model at work is a black box: a prompt goes in, tokens stream out, and everything in between is someone else's problem. In this tutorial it becomes yours. Through experiments in Python on Tenstorrent AI accelerators, you look at the prefill and decode phases, build a KV cache yourself, try batching and smaller number formats, and finish with a speedrun: make a model as fast as you can.
+A language model at work is a black box: a prompt goes in, tokens stream out, and everything in between is someone else's problem. In this tutorial it becomes yours. Through experiments in Python on a Tenstorrent AI accelerator, you look at the prefill and decode phases, build a KV cache yourself, try batching and smaller number formats, and finish with a speedrun: make a model as fast as you can. Knowing PyTorch is enough; it takes about four hours.
 
-## At the workshop
+## What you need
 
-Each participant gets their own machine in the cloud: an instance on Tenstorrent Console with one n150 card, opened as VS Code in the browser. Everything is already installed on it.
+- A machine with one **Tenstorrent n150** card, which is what the tutorial was built and tested on.
+- **[tt-metal](https://github.com/tenstorrent/tt-metal) built from source**, with `TT_METAL_HOME` pointing to the checkout (tested with TT-NN 0.77). Acts I and III use tt_transformers, which lives in the tt-metal source tree.
+- About 5 GB of free disk and an internet connection, to download the model weights once.
+- VS Code with the Jupyter extension, or JupyterLab.
 
-1. Open your instance with the URL on your paper slip and log in with the login and password printed there.
-2. Open `notebooks/00_hello.ipynb`, choose the kernel **MLinPL 2026**, and run it. Arrived late? Start with Act 0 anyway: it starts a warm-up that the later acts need.
-3. How the notebooks work: [notebooks/README.md](notebooks/README.md).
+## Set up
 
-## Program
+```bash
+git clone https://github.com/mdragulaTT/cache-me-if-you-can.git
+cd cache-me-if-you-can
+bash tools/setup_instance.sh
+```
 
-| Time | | |
-|------|--|--|
-| 9:00 | Act 0 | `00_hello.ipynb`: your card says hello; the warm-up starts in the background |
-| 9:20 | Talk 1 | Two phases of a language model |
-| 9:40 | Act I | `01_two_acts.ipynb`: time to first token, tokens per second, and the speed limit memory bandwidth sets |
-| 10:10 | | Break |
-| 10:20 | Talk 2 | The chip you are driving |
-| 10:30 | Act II | `02_the_cache.ipynb`: build a KV cache into a real GPT-2, in TT-NN |
-| 11:10 | | Break |
-| 11:20 | Act III | `03_the_levers.ipynb`: batch size and number formats |
-| 11:45 | Act IV | `04_the_sting.ipynb`: the Speedrun, make GPT-2 as fast as you can |
-| 12:35 | Talk 3 | What changes at scale, and the results |
+The script uses tt-metal's Python (`$TT_METAL_HOME/python_env`; pass `PYTHON=/path/to/python` to use another one that can `import ttnn`). It checks the machine and installs missing Python packages. It also downloads GPT-2 and DeepSeek-R1-Distill-Qwen-1.5B (about 4 GB) to `~/mlinpl-weights`, registers a notebook kernel called **MLinPL 2026**, and runs a short test on the card. It is safe to run again.
 
-Acts I and III serve DeepSeek-R1-Distill-Qwen-1.5B with tt_transformers, the way you would in production. Acts II and IV use GPT-2 small, written in about a hundred lines of TT-NN, so that you can read and change every line.
+## Go through it
+
+Open the notebooks with the **MLinPL 2026** kernel, in this order (times as at the workshop):
+
+| | | Time |
+|--|--|--|
+| Act 0 | `notebooks/00_hello.ipynb`: your card says hello; a warm-up starts in the background | 20 min |
+| Talk 1 | `slides/talk1_two_acts.pdf`: two phases of a language model | 20 min |
+| Act I | `notebooks/01_two_acts.ipynb`: time to first token, tokens per second, and the speed limit memory bandwidth sets | 30 min |
+| Talk 2 | `slides/talk2_the_chip.pdf`: the chip you are driving | 10 min |
+| Act II | `notebooks/02_the_cache.ipynb`: build a KV cache into a real GPT-2, in TT-NN | 40 min |
+| Act III | `notebooks/03_the_levers.ipynb`: batch size and number formats | 25 min |
+| Act IV | `notebooks/04_the_sting.ipynb`: the Speedrun, make GPT-2 as fast as you can | 50 min or more |
+| Talk 3 | `slides/talk3_at_scale.pdf`: what changes at scale | 15 min |
+
+Acts I and III serve DeepSeek-R1-Distill-Qwen-1.5B with tt_transformers, the way you would in production. Acts II and IV use GPT-2 small, written in about a hundred lines of TT-NN, so that you can read and change every line. How the notebooks work (the card, the warm-up, the gaps to fill in) is explained in [notebooks/README.md](notebooks/README.md).
 
 ## What is here
 
 ```
 notebooks/             the five notebooks, with gaps for you to fill
-notebooks/solutions/   the answers for Acts 0 to III (Act IV is a race; its solution comes after the workshop)
-slides/                the three talks (Markdown, PowerPoint and HTML)
+notebooks/solutions/   the answers to all five acts, including a reference solution for the Speedrun
+slides/                the three talks (PDF)
 common/                the shared code: the two models, the Speedrun race, the warm-up
 tools/                 setup_instance.sh and helpers for preparing a machine
 GLOSSARY.md            every term, defined
 ```
-
-## Running it on your own
-
-The notebooks also work without the event, on any machine with an n150 card and TT-NN installed (tested with TT-NN 0.77):
-
-```bash
-git clone https://github.com/mdragulaTT/cache-me-if-you-can.git && cd cache-me-if-you-can
-bash tools/setup_instance.sh
-```
-
-The script checks the machine, installs missing Python packages, downloads about 4 GB of model weights, registers the "MLinPL 2026" notebook kernel and runs a short test. Then open the notebooks in `notebooks/` in order; the talks in `slides/` go between them (Talk 1 after Act 0, Talk 2 after Act I, Talk 3 at the end).
 
 ## Built with
 

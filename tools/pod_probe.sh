@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Workshop-machine check for MLinPL 2026. Read-only; changes nothing.
-# Run inside a Console instance:   bash tools/pod_probe.sh 2>&1 | tee pod_probe.log
+# Machine check for the MLinPL 2026 tutorial. Read-only; changes nothing.
+#   bash tools/pod_probe.sh 2>&1 | tee pod_probe.log
 # The log is safe to share: it prints names of environment variables, never their values.
 set -u
 hr(){ printf '\n== %s ==\n' "$1"; }
@@ -45,4 +45,4 @@ hr "caches"; echo "HF_HOME=${HF_HOME:-<unset>} TT_METAL_CACHE=${TT_METAL_CACHE:-
 du -sh ~/.cache/* 2>/dev/null | head
 hr "pod limits"; cat /sys/fs/cgroup/memory.max 2>/dev/null || cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null
 echo "environment variable NAMES mentioning pod/idle/timeout (values hidden):"; env | grep -i -E "kube|pod|timeout|idle|ttl" | cut -d= -f1 | head -20
-hr "done"; echo "Next: leave this instance idle for 60+ minutes and check that it survives (lunch-break test)."
+hr "done"

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""Download every model the workshop uses into WEIGHTS_DIR, once, before the session.
-
-Run on each workshop machine during setup (or once on shared storage):
+"""Download both models the notebooks use into WEIGHTS_DIR, once (setup_instance.sh runs this):
     python tools/stage_weights.py              # both models, about 4 GB
     python tools/stage_weights.py --gpt2-only  # only GPT-2 (Acts II and IV), 0.5 GB
 Afterwards the notebooks run with HF_HUB_OFFLINE=1 and never touch the internet.
